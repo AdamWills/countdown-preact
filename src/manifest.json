@@ -1,6 +1,6 @@
 {
-  "name": "countdown-preact",
-  "short_name": "countdown-preact",
+  "name": "Countdown!",
+  "short_name": "Countdown",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

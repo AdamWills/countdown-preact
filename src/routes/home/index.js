@@ -1,17 +1,16 @@
 import { h } from 'preact';
-import style from './style.css';
 import { useState } from 'preact/hooks';
 import buildLetterLibrary from '../../data/letter-libraries';
+import Timer from '../../components/timer';
 
 const Home = () => {
   const letterLibrary = buildLetterLibrary();
   const [letters, addLetter] = useState([]);
   const [vowels, updateVowels] = useState(letterLibrary.vowels);
-  const [consonents, updateConsonents] = useState(letterLibrary.consonents);
-
+  const [consonants, updateConsonants] = useState(letterLibrary.consonants);
 
   const getRandomVowel = () => vowels[Math.floor(Math.random() * Math.floor(vowels.length))];
-  const getRandomConsonent = () => consonents[Math.floor(Math.random() * Math.floor(consonents.length))];
+  const getRandomConsonant = () => consonants[Math.floor(Math.random() * Math.floor(consonants.length))];
 
   const handleRemoveVowel = (vowel) => {
     const before = vowels.slice(0, vowels.indexOf(vowel));
@@ -19,17 +18,17 @@ const Home = () => {
     updateVowels([...before, ...after]);
   }
 
-  const handleRemoveConsonent = (consonent) => {
-    const before = consonents.slice(0, consonents.indexOf(consonent));
-    const after = consonents.slice(consonents.indexOf(consonent) + 1);
-    updateConsonents([...before, ...after]);
+  const handleRemoveConsonant = (consonant) => {
+    const before = consonants.slice(0, consonants.indexOf(consonant));
+    const after = consonants.slice(consonants.indexOf(consonant) + 1);
+    updateConsonants([...before, ...after]);
   }
 
-  const addConsonent = () => {
+  const addConsonant = () => {
     if (letters.length < 9) {
-      const consonent = getRandomConsonent();
-      addLetter([...letters, consonent]);
-      handleRemoveConsonent(consonent);
+      const consonant = getRandomConsonant();
+      addLetter([...letters, consonant]);
+      handleRemoveConsonant(consonant);
     }
   };
 
@@ -44,20 +43,35 @@ const Home = () => {
   const reset = () => {
     addLetter([]);
     updateVowels(letterLibrary.vowels);
-    updateConsonents(letterLibrary.consonents)
+    updateConsonants(letterLibrary.consonants)
   }
 
   return (
-    <div class={style.home}>
-      <h1>Countdown!</h1>
-      <button type="button" onclick={addConsonent}>Add Consonent</button>
-      <button type="button" onclick={addVowel}>Add Vowel</button>
-      <button type="button" onclick={reset}>Reset</button>
-      <ul>
-        {letters.map((value, index) => {
-        return <li key={index}>{value}</li>
-        })}
-      </ul>
+    <div class="flex flex-col min-h-screen items-center p-12 bg-countdown-bg">
+      <h1 class="mb-8 text-5xl font-bold text-white">Countdown!</h1>
+      <div class="mb-4">
+        <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase shadow-md" onclick={addConsonant}>Add Consonant</button>
+        <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-4 shadow-md" onclick={addVowel}>Add Vowel</button>
+      </div>
+      {letters.length > 0 &&
+        <>
+          <ul class="flex flex-wrap gap-2 justify-center p-2 bg-countdown-border mb-4">
+            {letters.map((value, index) => {
+            return <li class="text-5xl bg-countdown-tile text-white p-6 text-center w-20" key={index}>{value}</li>
+            })}
+          </ul>
+          <div class="mb-4">
+            {letters.length === 9 &&
+              <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Start</button>
+            }
+          <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Reset</button>
+          </div>
+        </>
+      }
+    {letters.length < 9 &&
+      <p class="text-white text-lg">Letters left: {9 - letters.length}</p>
+    }
+    <Timer />
     </div>
   )
 };

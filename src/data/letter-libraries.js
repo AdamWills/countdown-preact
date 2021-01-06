@@ -1,4 +1,4 @@
-const consonentLibrary = {
+const consonantLibrary = {
   B: 2,
   C: 3,
   D: 6,
@@ -24,11 +24,11 @@ const consonentLibrary = {
 const vowelLibrary = { A: 15, E: 21, I: 13, O: 13, U: 5 }
 
 const buildLetterLibrary = () => {
-  const consonents = [];
+  const consonants = [];
   const vowels = [];
-  Object.keys(consonentLibrary).forEach(c => {
-    for (let i = 0; i < consonentLibrary[c]; i++) {
-      consonents.push(c);
+  Object.keys(consonantLibrary).forEach(c => {
+    for (let i = 0; i < consonantLibrary[c]; i++) {
+      consonants.push(c);
     }
   });
   Object.keys(vowelLibrary).forEach(v => {
@@ -38,7 +38,7 @@ const buildLetterLibrary = () => {
   });
   return {
     vowels,
-    consonents
+    consonants
   }
 }
 
