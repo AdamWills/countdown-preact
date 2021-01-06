@@ -53,6 +53,12 @@ const Home = () => {
         <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase shadow-md" onclick={addConsonant}>Add Consonant</button>
         <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-4 shadow-md" onclick={addVowel}>Add Vowel</button>
       </div>
+      {letters.length < 9 &&
+        <p class="text-white text-lg">Letters left: {9 - letters.length}</p>
+      }
+      {letters.length === 9 &&
+        <p class="text-white text-lg">Ready!</p>
+      }
       {letters.length > 0 &&
         <>
           <ul class="flex flex-wrap gap-2 justify-center p-2 bg-countdown-border mb-4">
@@ -60,18 +66,14 @@ const Home = () => {
             return <li class="text-5xl bg-countdown-tile text-white p-6 text-center w-20" key={index}>{value}</li>
             })}
           </ul>
-          <div class="mb-4">
-            {letters.length === 9 &&
-              <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Start</button>
-            }
-          <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Reset</button>
-          </div>
+          {/* <div class="mb-4">
+            <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Reset</button>
+          </div> */}
         </>
       }
-    {letters.length < 9 &&
-      <p class="text-white text-lg">Letters left: {9 - letters.length}</p>
+    {letters.length === 9 &&
+      <Timer />
     }
-    <Timer />
     </div>
   )
 };
