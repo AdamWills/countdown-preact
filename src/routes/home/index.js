@@ -66,13 +66,10 @@ const Home = () => {
             return <li class="text-5xl bg-countdown-tile text-white p-6 text-center w-20" key={index}>{value}</li>
             })}
           </ul>
-          {/* <div class="mb-4">
-            <button type="button" class="bg-blue-700 p-4 text-white font-bold uppercase mx-2 shadow-md" onclick={reset}>Reset</button>
-          </div> */}
         </>
       }
     {letters.length === 9 &&
-      <Timer />
+      <Timer reset={reset} />
     }
     </div>
   )

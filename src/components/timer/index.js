@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import Countdown from 'react-countdown';
 
-const Timer = () => {
+const Timer = (props) => {
 
   const timerStates = {
     start: 'Start',
@@ -30,15 +30,21 @@ const Timer = () => {
           {total / 1000}
         </div>
       }
+      {timerState === timerStates.complete &&
+        <button class="p-4 bg-blue-700 text-white" onClick={props.reset}>
+          New Game
+        </button>
+      }
       </>
     )
   }
   const handleComplete = () => {
-    console.log('TIME IS UP, jerk!')
+    setTimerState(timerStates.complete);
   }
+
   return (
     <Countdown
-      date={Date.now() + 60000}
+      date={Date.now() + 30000}
       autoStart={false}
       renderer={renderer}
       onComplete={handleComplete}
