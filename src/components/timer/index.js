@@ -17,9 +17,9 @@ const Timer = (props) => {
   const renderer = ({ api, total }) => {
     const handleActionClick = () => {
       if (timerState === timerStates.start) {
-        play();
-        api.start();
         setTimerState(timerStates.active);
+        api.start();
+        play();
       }
     }
     return (
