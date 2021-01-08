@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import Countdown from 'react-countdown';
+import useSound from 'use-sound';
+// import countdownSong from ;
 
 const Timer = (props) => {
 
@@ -10,10 +12,12 @@ const Timer = (props) => {
     complete: 'Done!'
   };
   const [timerState, setTimerState] = useState(timerStates.start);
+  const [play] = useSound('../../assets/countdown.mp3');
 
   const renderer = ({ api, total }) => {
     const handleActionClick = () => {
       if (timerState === timerStates.start) {
+        play();
         api.start();
         setTimerState(timerStates.active);
       }
